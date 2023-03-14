@@ -1,15 +1,8 @@
 import { useEffect, useState } from 'react';
 import List from './components/List';
 import Form from './components/Form';
+import { Sub } from './types'
 import './App.css';
-
-
-interface Sub {
-  nick: string
-  avatar: string
-  subMonths: number
-  description?: string
-}
 
 interface AppState {
   subs: Array<Sub>
@@ -39,11 +32,15 @@ function App() {
     setSubs(INITIAL_STATE)
   },[])
 
+  const handleNewSub = (newSub: Sub): void => {
+    setSubs(subs => [...subs, newSub])
+  }
+
   return (
     <div className="App">
      <h1>TypeScript Course</h1>
       <List subs={subs}/>
-      <Form />
+      <Form onNewSub={handleNewSub}/>
     </div>
   );
 }
